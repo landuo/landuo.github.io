@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://landuo.github.io/design_pattern_intro/</loc>
+    <lastmod>2020-08-23</lastmod>
+  </url>  <url>
     <loc>http://landuo.github.io/factory_method/</loc>
     <lastmod>2020-08-23</lastmod>
   </url>  <url>
@@ -8,9 +11,6 @@
     <lastmod>2020-08-23</lastmod>
   </url>  <url>
     <loc>http://landuo.github.io/resolv_cpu100_by_mine_script/</loc>
-    <lastmod>2020-08-23</lastmod>
-  </url>  <url>
-    <loc>http://landuo.github.io/design_pattern_intro/</loc>
     <lastmod>2020-08-23</lastmod>
   </url>  <url>
     <loc>http://landuo.github.io/singleton/</loc>

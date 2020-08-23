@@ -16,7 +16,7 @@
 <meta property="og:description" content="介绍工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。 模式结构工厂方法模式包含如下角色：  Product：抽象产品 ConCreteProduct：具体产品 Factory：抽象工厂 ConCr">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-23T13:56:51.000Z">
-<meta property="article:modified_time" content="2020-08-23T15:02:35.957Z">
+<meta property="article:modified_time" content="2020-08-23T15:28:31.054Z">
 <meta property="article:author" content="Accidia">
 <meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
@@ -254,6 +254,7 @@ ga('send', 'pageview');
 <li>新增产品时还需要新增新的具体工厂，导致系统中类的个数成对增加，在一定程度上增加了系统的复杂性</li>
 </ul>
 <p><strong>适用情况</strong>：<br>一个类不知道它所需要的对象的类；一个类通过其子类来指定创建哪个对象；将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定</p>
+<p>以上代码保存在： <a href="https://github.com/landuo/design_pattern_learning" target="_blank" rel="noopener">landuo/design_pattern_learning</a></p>
 
       
 

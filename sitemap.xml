@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://landuo.github.io/design_pattern_intro/</loc>
+    
+    <lastmod>2020-08-23T15:45:57.219Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://landuo.github.io/factory_method/</loc>
     
-    <lastmod>2020-08-23T15:02:35.957Z</lastmod>
+    <lastmod>2020-08-23T15:28:31.054Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/simple_factory/</loc>
     
-    <lastmod>2020-08-23T14:56:32.570Z</lastmod>
+    <lastmod>2020-08-23T15:27:52.807Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>http://landuo.github.io/resolv_cpu100_by_mine_script/</loc>
     
     <lastmod>2020-08-23T13:58:02.568Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://landuo.github.io/design_pattern_intro/</loc>
-    
-    <lastmod>2020-08-23T13:57:42.137Z</lastmod>
     
   </url>
   
