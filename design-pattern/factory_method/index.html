@@ -6,14 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>Tag: 树莓派 | Accidia的记事本</title>
+  <title>工厂方法模式 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Accidia的记事本">
-<meta property="og:url" content="http://landuo.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/index.html">
+  <meta name="description" content="介绍工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。 模式结构工厂方法模式包含如下角色：  Product：抽象产品 ConCreteProduct：具体产品 Factory：抽象工厂 ConCr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="工厂方法模式">
+<meta property="og:url" content="http://landuo.github.io/design-pattern/factory_method/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
+<meta property="og:description" content="介绍工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。 模式结构工厂方法模式包含如下角色：  Product：抽象产品 ConCreteProduct：具体产品 Factory：抽象工厂 ConCr">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-23T13:56:51.000Z">
+<meta property="article:modified_time" content="2020-09-01T09:55:04.433Z">
 <meta property="article:author" content="Accidia">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Accidia的记事本" type="application/atom+xml">
@@ -153,52 +158,123 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-design-pattern/factory_method" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/install_docker_with_raspberry_pi/" class="archive-article-date">
-  	<time datetime="2019-07-31T14:04:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-31</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/install_docker_with_raspberry_pi/">树莓派安装docker</a>
+    <h1 class="article-title" itemprop="name">
+      工厂方法模式
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/design-pattern/factory_method/" class="archive-article-date">
+  	<time datetime="2020-08-23T13:56:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。</p>
+<h3 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h3><p>工厂方法模式包含如下角色：</p>
+<ul>
+<li>Product：抽象产品</li>
+<li>ConCreteProduct：具体产品</li>
+<li>Factory：抽象工厂</li>
+<li>ConCreateFactory：具体工厂<a id="more"></a>
+
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>关系</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Product（抽象产品）</td>
+<td>具体产品的父类</td>
+<td>描述具体产品的公共接口</td>
+</tr>
+<tr>
+<td>ConcreteProduct（具体产品）</td>
+<td>抽象产品的子类；工厂类创建的目标类</td>
+<td>描述生产的具体产品</td>
+</tr>
+<tr>
+<td>Factory（抽象工厂）</td>
+<td>具体工厂的父类</td>
+<td>描述具体工厂的公共接口</td>
+</tr>
+<tr>
+<td>ConCreateFactory （具体工厂）</td>
+<td>抽象工厂的子类；被外界调用</td>
+<td>描述具体工厂；实现Factory公共接口方法创建产品的实例</td>
+</tr>
+</tbody></table>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
+<li>创建 <strong>Product（抽象产品类）</strong>，定义此类产品的公共接口</li>
+<li>创建 <strong>Factory（抽象工厂类）</strong>，定义具体工厂的工厂接口</li>
+<li>创建 <strong>ConcreteProduct（具体产品类）</strong>，定义生产的具体产品</li>
+<li>创建 <strong>ConCreateFactory（具体工厂类）</strong>，定义创建对应具体产品实例的方法</li>
+<li>外界通过调用具体工厂类的方法创建不同具体产品类的实例</li>
+</ol>
+<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>以畜牧场为例，从畜牧场中生产出牛和马：</p>
+<p><strong>步骤1：</strong> 定义一个动物接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 嘶叫</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>步骤2：</strong> 定义一个生产动物的畜牧场工厂接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="function">Animal <span class="title">newAnimal</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>步骤3：</strong> 定义不同的动物（牛、马等）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cattle</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cattle</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"牛叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Horse</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"马叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>步骤4：</strong> 定义创建各种动物的具体生产工厂（每个工厂负责生产一种动物）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CattleFarm</span> <span class="keyword">implements</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cattle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HorseFarm</span> <span class="keyword">implements</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Horse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>步骤5：</strong> 外部调用不同工厂类的方法，带走不同的动物</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 带走一头牛</span></span><br><span class="line">        AnimalFarm cattleFarm = <span class="keyword">new</span> CattleFarm();</span><br><span class="line">        Animal cattle = cattleFarm.newAnimal();</span><br><span class="line">        cattle.bray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 带走一头马</span></span><br><span class="line">        AnimalFarm horseFarm = <span class="keyword">new</span> HorseFarm();</span><br><span class="line">        Animal horse = horseFarm.newAnimal();</span><br><span class="line">        horse.bray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">牛叫</span><br><span class="line">马叫</span><br></pre></td></tr></table></figure>
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>优点</strong>：</p>
+<ul>
+<li>更符合<strong>开闭原则</strong></li>
+<li>符合<strong>单一责任原则</strong>（每个具体工厂类只负责创建对应的产品）</li>
+<li>新增新的产品类时无须修改现有系统，并且封装了具体产品的创建细节，具有良好的灵活性和拓展性</li>
+</ul>
+<p><strong>缺点</strong>：</p>
+<ul>
+<li>新增产品时还需要新增新的具体工厂，导致系统中类的个数成对增加，在一定程度上增加了系统的复杂性</li>
+</ul>
+<p><strong>适用情况</strong>：<br>一个类不知道它所需要的对象的类；一个类通过其子类来指定创建哪个对象；将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定</p>
+<p>以上代码保存在： <a href="https://github.com/landuo/Learning" target="_blank" rel="noopener">landuo/Learning</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">树莓派</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -211,17 +287,129 @@ ga('send', 'pageview');
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/design-pattern/factory_method/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/sort/insert_sort/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          插入排序
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/design-pattern/simple_factory/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">简单工厂模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://landuo.github.io/design-pattern/factory_method/",
+  owner: 'landuo',
+  repo: 'landuo.github.io',
+  oauth: {
+    client_id: 'f22cd1da404a63898b7e',
+    client_secret: '63e6c51500ffb475e93edd3b52e88e9bc3b55bf5',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
+  
 
 
           </div>
@@ -249,9 +437,9 @@ ga('send', 'pageview');
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

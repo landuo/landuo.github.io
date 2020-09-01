@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>工厂方法模式 | Accidia的记事本</title>
+  <title>插入排序 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="介绍工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。 模式结构工厂方法模式包含如下角色：  Product：抽象产品 ConCreteProduct：具体产品 Factory：抽象工厂 ConCr">
+  <meta name="description" content="前言以下内容为个人见解，如有见解，请赐教，谢谢大家。 思路将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工厂方法模式">
-<meta property="og:url" content="http://landuo.github.io/factory_method/index.html">
+<meta property="og:title" content="插入排序">
+<meta property="og:url" content="http://landuo.github.io/sort/insert_sort/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
-<meta property="og:description" content="介绍工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。 模式结构工厂方法模式包含如下角色：  Product：抽象产品 ConCreteProduct：具体产品 Factory：抽象工厂 ConCr">
+<meta property="og:description" content="前言以下内容为个人见解，如有见解，请赐教，谢谢大家。 思路将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-08-23T13:56:51.000Z">
-<meta property="article:modified_time" content="2020-08-23T15:28:31.054Z">
+<meta property="og:image" content="http://landuo.github.io/images/sort/insert_sort1">
+<meta property="og:image" content="http://landuo.github.io/images/sort/insert_sort2.png">
+<meta property="article:published_time" content="2020-09-01T10:48:54.000Z">
+<meta property="article:modified_time" content="2020-09-01T12:15:06.718Z">
 <meta property="article:author" content="Accidia">
-<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://landuo.github.io/images/sort/insert_sort1">
   
     <link rel="alternative" href="/atom.xml" title="Accidia的记事本" type="application/atom+xml">
   
@@ -158,103 +161,42 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-design-pattern/factory_method" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-sort/insert_sort" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      工厂方法模式
+      插入排序
     </h1>
   
 
         
-        <a href="/factory_method/" class="archive-article-date">
-  	<time datetime="2020-08-23T13:56:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-23</time>
+        <a href="/sort/insert_sort/" class="archive-article-date">
+  	<time datetime="2020-09-01T10:48:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>工厂方法模式又叫虚拟构造器模式或者多态工厂模式，属于创建型模式。在工厂方法模式中，工厂父类负责定义创建产品对象的公共接口，而子工厂则负责生成具体的产品对象。目的是将产品类的实例化操作延迟到工厂子类中完成，即通过工厂子类来确定应该实例化哪一个具体产品类。</p>
-<h3 id="模式结构"><a href="#模式结构" class="headerlink" title="模式结构"></a>模式结构</h3><p>工厂方法模式包含如下角色：</p>
-<ul>
-<li>Product：抽象产品</li>
-<li>ConCreteProduct：具体产品</li>
-<li>Factory：抽象工厂</li>
-<li>ConCreateFactory：具体工厂<a id="more"></a>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以下内容为个人见解，如有见解，请赐教，谢谢大家。</p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序</p>
+<a id="more"></a>
 
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>角色</th>
-<th>关系</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Product（抽象产品）</td>
-<td>具体产品的父类</td>
-<td>描述具体产品的公共接口</td>
-</tr>
-<tr>
-<td>ConcreteProduct（具体产品）</td>
-<td>抽象产品的子类；工厂类创建的目标类</td>
-<td>描述生产的具体产品</td>
-</tr>
-<tr>
-<td>Factory（抽象工厂）</td>
-<td>具体工厂的父类</td>
-<td>描述具体工厂的公共接口</td>
-</tr>
-<tr>
-<td>ConCreateFactory （具体工厂）</td>
-<td>抽象工厂的子类；被外界调用</td>
-<td>描述具体工厂；实现Factory公共接口方法创建产品的实例</td>
-</tr>
-</tbody></table>
-<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><ol>
-<li>创建 <strong>Product（抽象产品类）</strong>，定义此类产品的公共接口</li>
-<li>创建 <strong>Factory（抽象工厂类）</strong>，定义具体工厂的工厂接口</li>
-<li>创建 <strong>ConcreteProduct（具体产品类）</strong>，定义生产的具体产品</li>
-<li>创建 <strong>ConCreateFactory（具体工厂类）</strong>，定义创建对应具体产品实例的方法</li>
-<li>外界通过调用具体工厂类的方法创建不同具体产品类的实例</li>
-</ol>
-<h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>以畜牧场为例，从畜牧场中生产出牛和马：</p>
-<p><strong>步骤1：</strong> 定义一个动物接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 嘶叫</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="动画演示"><a href="#动画演示" class="headerlink" title="动画演示"></a>动画演示</h3><p><img src="/images/sort/insert_sort1"></p>
+<h3 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h3><p>设有一个数据元素序列 <strong>{3,6,4,2,11,10,5}</strong> ，使用插入排序时每次排序的步骤<br><img src="/images/sort/insert_sort2.png"></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sorting;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>];</span><br><span class="line">        Random rand = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++) &#123;</span><br><span class="line">            arr[i] = rand.nextInt(<span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"生成随机数组："</span> + Arrays.toString(arr));</span><br><span class="line">        sort(arr);</span><br><span class="line">        System.out.println(<span class="string">"排序后的结果: "</span> + Arrays.toString(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i, j, num, n = arr.length;</span><br><span class="line">        <span class="comment">// 从数组第二个遍历到数组最后一个</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            j = i - <span class="number">1</span>; <span class="comment">// 从此次需要排序的数的前一个数开始比较</span></span><br><span class="line">            num = arr[i]; <span class="comment">// 将此次需要排序的数先存起来</span></span><br><span class="line">            <span class="comment">// 从当前需要排序的数的前一个逆序遍历至数组第一个元素</span></span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; num) &#123;  <span class="comment">// 一直向前对比，直到 arr[j] 比 num 小为止</span></span><br><span class="line">                <span class="comment">// 进入这里说明 arr[i] 比 num ，需要把 num 放到 arr[i] 前面 （即二者交换位置）</span></span><br><span class="line">                arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j + <span class="number">1</span>] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                <span class="comment">// 交换完后继续与前面的元素对比</span></span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次排序："</span> + Arrays.toString(arr));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong>步骤2：</strong> 定义一个生产动物的畜牧场工厂接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="function">Animal <span class="title">newAnimal</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>步骤3：</strong> 定义不同的动物（牛、马等）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cattle</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cattle</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"牛叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Horse</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"马叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>步骤4：</strong> 定义创建各种动物的具体生产工厂（每个工厂负责生产一种动物）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CattleFarm</span> <span class="keyword">implements</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cattle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HorseFarm</span> <span class="keyword">implements</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Horse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>步骤5：</strong> 外部调用不同工厂类的方法，带走不同的动物</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 带走一头牛</span></span><br><span class="line">        AnimalFarm cattleFarm = <span class="keyword">new</span> CattleFarm();</span><br><span class="line">        Animal cattle = cattleFarm.newAnimal();</span><br><span class="line">        cattle.bray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 带走一头马</span></span><br><span class="line">        AnimalFarm horseFarm = <span class="keyword">new</span> HorseFarm();</span><br><span class="line">        Animal horse = horseFarm.newAnimal();</span><br><span class="line">        horse.bray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>运行结果：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">牛叫</span><br><span class="line">马叫</span><br></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>优点</strong>：</p>
-<ul>
-<li>更符合<strong>开闭原则</strong></li>
-<li>符合<strong>单一责任原则</strong>（每个具体工厂类只负责创建对应的产品）</li>
-<li>新增新的产品类时无须修改现有系统，并且封装了具体产品的创建细节，具有良好的灵活性和拓展性</li>
-</ul>
-<p><strong>缺点</strong>：</p>
-<ul>
-<li>新增产品时还需要新增新的具体工厂，导致系统中类的个数成对增加，在一定程度上增加了系统的复杂性</li>
-</ul>
-<p><strong>适用情况</strong>：<br>一个类不知道它所需要的对象的类；一个类通过其子类来指定创建哪个对象；将创建对象的任务委托给多个工厂子类中的某一个，客户端在使用时可以无须关心是哪一个工厂子类创建产品子类，需要时再动态指定</p>
-<p>以上代码保存在： <a href="https://github.com/landuo/design_pattern_learning" target="_blank" rel="noopener">landuo/design_pattern_learning</a></p>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre><code>生成随机数组：[48, 45, 35, 32, 93, 13, 99]
+第1次排序：[45, 48, 35, 32, 93, 13, 99]
+第2次排序：[35, 45, 48, 32, 93, 13, 99]
+第3次排序：[32, 35, 45, 48, 93, 13, 99]
+第4次排序：[32, 35, 45, 48, 93, 13, 99]
+第5次排序：[13, 32, 35, 45, 48, 93, 99]
+第6次排序：[13, 32, 35, 45, 48, 93, 99]
+排序后的结果: [13, 32, 35, 45, 48, 93, 99]</code></pre>
 
       
 
@@ -268,7 +210,7 @@ ga('send', 'pageview');
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
         		</li>
       		
 		</ul>
@@ -335,7 +277,7 @@ ga('send', 'pageview');
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/factory_method/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/sort/insert_sort/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -350,8 +292,8 @@ ga('send', 'pageview');
 <nav id="article-nav">
   
   
-    <a href="/simple_factory/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">简单工厂模式</div>
+    <a href="/design-pattern/factory_method/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">工厂方法模式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -390,7 +332,7 @@ ga('send', 'pageview');
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://landuo.github.io/factory_method/",
+  id: "http://landuo.github.io/sort/insert_sort/",
   owner: 'landuo',
   repo: 'landuo.github.io',
   oauth: {
@@ -511,6 +453,10 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">树莓派</a>
               </li>
              
@@ -519,11 +465,11 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+                <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
             
             <div class="clearfix"></div>
