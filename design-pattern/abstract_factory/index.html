@@ -6,23 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>插入排序 | Accidia的记事本</title>
+  <title>抽象工厂模式 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言以下内容为个人见解，如有见解，请赐教，谢谢大家。 思路将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序">
+  <meta name="description" content="介绍意图： 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。如何使用： 系统的产品有多于一个的产品族，而系统只消费其中某一族的产品。应用实例： 工作了，为了参加一些聚会，肯定有两套或多套衣服吧，比如说有商务装（成套，一系列具体产品）、时尚装（成套，一系列具体产品），甚至对于一个家庭来说，可能有商务女装、商务男装、时尚女装、时尚男装，这些也都是成套的，即一系列具体产品。假设一种情">
 <meta property="og:type" content="article">
-<meta property="og:title" content="插入排序">
-<meta property="og:url" content="http://landuo.github.io/sort/insert_sort/index.html">
+<meta property="og:title" content="抽象工厂模式">
+<meta property="og:url" content="http://landuo.github.io/design-pattern/abstract_factory/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
-<meta property="og:description" content="前言以下内容为个人见解，如有见解，请赐教，谢谢大家。 思路将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序">
+<meta property="og:description" content="介绍意图： 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。如何使用： 系统的产品有多于一个的产品族，而系统只消费其中某一族的产品。应用实例： 工作了，为了参加一些聚会，肯定有两套或多套衣服吧，比如说有商务装（成套，一系列具体产品）、时尚装（成套，一系列具体产品），甚至对于一个家庭来说，可能有商务女装、商务男装、时尚女装、时尚男装，这些也都是成套的，即一系列具体产品。假设一种情">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://landuo.github.io/images/sort/insert_sort1">
-<meta property="og:image" content="http://landuo.github.io/images/sort/insert_sort2.png">
-<meta property="article:published_time" content="2020-09-01T10:48:54.000Z">
-<meta property="article:modified_time" content="2020-09-01T12:43:55.772Z">
+<meta property="og:image" content="http://landuo.github.io/images/design_pattern/abstractFactory.svg">
+<meta property="article:published_time" content="2020-09-06T13:10:18.000Z">
+<meta property="article:modified_time" content="2020-09-06T14:36:44.400Z">
 <meta property="article:author" content="Accidia">
-<meta property="article:tag" content="排序">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://landuo.github.io/images/sort/insert_sort1">
+<meta name="twitter:image" content="http://landuo.github.io/images/design_pattern/abstractFactory.svg">
   
     <link rel="alternative" href="/atom.xml" title="Accidia的记事本" type="application/atom+xml">
   
@@ -161,37 +160,88 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-sort/insert_sort" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-design-pattern/abstract_factory" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      插入排序
+      抽象工厂模式
     </h1>
   
 
         
-        <a href="/sort/insert_sort/" class="archive-article-date">
-  	<time datetime="2020-09-01T10:48:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-01</time>
+        <a href="/design-pattern/abstract_factory/" class="archive-article-date">
+  	<time datetime="2020-09-06T13:10:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>以下内容为个人见解，如有见解，请赐教，谢谢大家。</p>
-<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><p>将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序</p>
-<a id="more"></a>
+        <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p><strong>意图：</strong> 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类。<br><strong>如何使用：</strong> 系统的产品有多于一个的产品族，而系统只消费其中某一族的产品。<br><strong>应用实例：</strong> 工作了，为了参加一些聚会，肯定有两套或多套衣服吧，比如说有商务装（成套，一系列具体产品）、时尚装（成套，一系列具体产品），甚至对于一个家庭来说，可能有商务女装、商务男装、时尚女装、时尚男装，这些也都是成套的，即一系列具体产品。假设一种情况，在您的家中，某一个衣柜（具体工厂）只能存放某一种这样的衣服（成套，一系列具体产品），每次拿这种成套的衣服时也自然要从这个衣柜中取出了。用 OOP 的思想去理解，所有的衣柜（具体工厂）都是衣柜类的（抽象工厂）某一个，而每一件成套的衣服又包括具体的上衣（某一具体产品），裤子（某一具体产品），这些具体的上衣其实也都是上衣（抽象产品），具体的裤子也都是裤子（另一个抽象产品）  </p>
+<p>为了更好理解抽象工厂模式，需引入两个概念：</p>
+<ul>
+<li><strong>产品等级结构：</strong> 产品等级结构即产品的继承结构，如一个抽象类是电视机，其子类有海尔电视机、海信电视机、TCL电视机，则抽象电视机与具体品牌的电视机之间构成了一个产品等级结构，抽象电视机是父类，而具体品牌的电视机是其子类。  </li>
+<li><strong>产品族：</strong> 在抽象工厂模式中，产品族是指由同一个工厂生产的，位于不同产品等级结构中的一组产品，如海尔电器工厂生产的海尔电视机、海尔电冰箱，海尔电视机位于电视机产品等级结构中，海尔电冰箱位于电冰箱产品等级结构中。  </li>
+<li><strong>示意图：</strong> <a id="more"></a>
+<img src="/images/design_pattern/abstractFactory.svg">  </li>
+</ul>
+<p><strong>使用场景：</strong> 1. QQ换皮肤，一整套一起换。 2. 使用不同数据库时使用不同的数据库方言</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>以项目中更换数据库为例：  </p>
+<ol>
+<li>创建 IUser 和 IDpartment 接口</li>
+<li>创建 Oracle 数据库对于 IUser 和 IDpartment 的实现类 OracleUser 和 OracleDepartment，以及 MySQL 数据库对于 IUser 和 IDpartment 的实现类 MySQLUser 和 MySQLDepartment</li>
+<li>创建一个抽象工厂类 DbFactory, 然后创建 Oracle 和 MySQL 数据库对其的实现类，由这些实现类来创建各自数据库需要操作的类</li>
+</ol>
+<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><p>以更换数据库为例：<br><strong>步骤1：</strong> 创建接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertDepartment</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getDepartment</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="动画演示"><a href="#动画演示" class="headerlink" title="动画演示"></a>动画演示</h3><p><img src="/images/sort/insert_sort1"></p>
-<h3 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h3><p>设有一个数据元素序列 <strong>{3,6,4,2,11,10,5}</strong> ，使用插入排序时每次排序的步骤<br><img src="/images/sort/insert_sort2.png"></p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sorting;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>];</span><br><span class="line">        Random rand = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++) &#123;</span><br><span class="line">            arr[i] = rand.nextInt(<span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"生成随机数组："</span> + Arrays.toString(arr));</span><br><span class="line">        sort(arr);</span><br><span class="line">        System.out.println(<span class="string">"排序后的结果: "</span> + Arrays.toString(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i, j, num, n = arr.length;</span><br><span class="line">        <span class="comment">// 从数组第二个遍历到数组最后一个</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            j = i - <span class="number">1</span>; <span class="comment">// 从此次需要排序的数的前一个数开始比较</span></span><br><span class="line">            num = arr[i]; <span class="comment">// 将此次需要排序的数先存起来</span></span><br><span class="line">            <span class="comment">// 从当前需要排序的数的前一个逆序遍历至数组第一个元素</span></span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; num) &#123;  <span class="comment">// 一直向前对比，直到 arr[j] 比 num 小为止</span></span><br><span class="line">                <span class="comment">// 进入这里说明 arr[i] 比 num ，需要把 num 放到 arr[i] 前面 （即二者交换位置）</span></span><br><span class="line">                arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j + <span class="number">1</span>] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                <span class="comment">// 交换完后继续与前面的元素对比</span></span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次排序："</span> + Arrays.toString(arr));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>步骤2：</strong> 创建接口的实现类<br>MySQL的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLUser</span> <span class="keyword">implements</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中插入一条 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中查询 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLDepartment</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中插入一条 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中查询 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">生成随机数组：[<span class="number">48</span>, <span class="number">45</span>, <span class="number">35</span>, <span class="number">32</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">1</span>次排序：[<span class="number">45</span>, <span class="number">48</span>, <span class="number">35</span>, <span class="number">32</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">2</span>次排序：[<span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">32</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">3</span>次排序：[<span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">4</span>次排序：[<span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">5</span>次排序：[<span class="number">13</span>, <span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">6</span>次排序：[<span class="number">13</span>, <span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">99</span>]</span><br><span class="line">排序后的结果: [<span class="number">13</span>, <span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">99</span>]</span><br></pre></td></tr></table></figure>
+<p>Oralce的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OracleUser</span> <span class="keyword">implements</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中插入一条 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中查询 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OracleDepartment</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中插入一条 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中查询 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>以上代码保存在： <a href="https://github.com/landuo/Learning" target="_blank" rel="noopener">landuo/Learning</a></p>
+<p><strong>步骤3：</strong> 创建抽象工厂并创建不同数据库对其的实现<br>创建抽象工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DbFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">IUser <span class="title">createUser</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">IDepartment <span class="title">createDepartment</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建 Oracle 对其的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OracleFactory</span> <span class="keyword">implements</span> <span class="title">DbFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IUser <span class="title">createUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OracleUser();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDepartment <span class="title">createDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OracleDepartment();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建 MySQL 对其的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLFactory</span> <span class="keyword">implements</span> <span class="title">DbFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IUser <span class="title">createUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MySQLUser();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDepartment <span class="title">createDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MySQLDepartment();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>步骤4：</strong> 调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactoryDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        数据库为 MySQL 时只需要创建 MySQL 的工厂即可</span></span><br><span class="line"><span class="comment">//        DbFactory factory = new MySQLFactory();</span></span><br><span class="line">        DbFactory factory = <span class="keyword">new</span> OracleFactory();</span><br><span class="line">        IUser user = factory.createUser();</span><br><span class="line">        user.insertUser();</span><br><span class="line">        user.getUser();</span><br><span class="line">        IDepartment department = factory.createDepartment();</span><br><span class="line">        department.insertDepartment();</span><br><span class="line">        department.getDepartment();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果：</strong></p>
+<pre><code>在 Oracle 中插入一条 User 记录
+在 Oracle 中查询 User 记录
+在 Oracle 中插入一条 department 记录
+在 Oracle 中查询 department 记录</code></pre>
+<p>可以看出，当我们需要使用 Oracle 数据库时只需要创建一个 OracleFactory 就行了，需要换成 MySQL 时就创建 MySQLFactory，这样的好处是能保证客户端始终只使用同一个产品族中的对象。 但当数据库中突然要再加一个 Role 表的时候，就需要修改所有的工厂（开闭原则的倾斜性）</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>优点：</strong> </p>
+<ul>
+<li>抽象工厂模式隔离了具体类的生成，使得客户并不需要知道什么被创建。由于这种隔离，更换一个具体工厂就变得相对容易。所有的具体工厂都实现了抽象工厂中定义的那些公共接口，因此只需改变具体工厂的实例，就可以在某种程度上改变整个软件系统的行为。另外，应用抽象工厂模式可以实现高内聚低耦合的设计目的，因此抽象工厂模式得到了广泛的应用。  </li>
+<li>当一个产品族中的多个对象被设计成一起工作时，它能够保证客户端始终只使用同一个产品族中的对象。这对一些需要根据当前环境来决定其行为的软件系统来说，是一种非常实用的设计模式。 </li>
+<li>增加新的具体工厂和产品族很方便，无须修改已有系统，符合「开闭原则」  </li>
+</ul>
+<p><strong>缺点：</strong> </p>
+<ul>
+<li>在添加新的产品对象时，难以扩展抽象工厂来生产新种类的产品，这是因为在抽象工厂角色中规定了所有可能被创建的产品集合，要支持新种类的产品就意味着要对该接口进行扩展，而这将涉及到对抽象工厂角色及其所有子类的修改，显然会带来较大的不便。</li>
+<li>开闭原则的倾斜性（增加新的工厂和产品族容易，增加新的产品等级结构麻烦）  </li>
+</ul>
+<p><strong>「开闭原则」的倾斜性</strong></p>
+<ul>
+<li>「开闭原则」要求系统对扩展开放，对修改封闭，通过扩展达到增强其功能的目的。对于涉及到多个产品族与多个产品等级结构的系统，其功能增强包括两方面: <ul>
+<li>增加产品族：对于增加新的产品族，工厂方法模式很好的支持了「开闭原则」，对于新增加的产品族，只需要对应增加一个新的具体工厂即可，对已有代码无须做任何修改</li>
+<li>增加新的产品等级结构：对于增加新的产品等级结构，需要修改所有的工厂角色，包括抽象工厂类，在所有的工厂类中都需要增加生产新产品的方法，不能很好地支持「开闭原则」  </li>
+</ul>
+</li>
+<li>抽象工厂模式的这种性质称为「开闭原则」的倾斜性，抽象工厂模式以一种倾斜的方式支持增加新的产品，它为新产品族的增加提供方便，但不能为新的产品等级结构的增加提供这样的方便</li>
+</ul>
 
       
 
@@ -205,7 +255,7 @@ ga('send', 'pageview');
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">排序</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
         		</li>
       		
 		</ul>
@@ -272,7 +322,7 @@ ga('send', 'pageview');
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/sort/insert_sort/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/design-pattern/abstract_factory/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -286,18 +336,9 @@ ga('send', 'pageview');
   
 <nav id="article-nav">
   
-    <a href="/design-pattern/abstract_factory/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          抽象工厂模式
-        
-      </div>
-    </a>
   
-  
-    <a href="/design-pattern/factory_method/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">工厂方法模式</div>
+    <a href="/sort/insert_sort/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">插入排序</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -336,7 +377,7 @@ ga('send', 'pageview');
 <script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 var gitment = new Gitment({
-  id: "http://landuo.github.io/sort/insert_sort/",
+  id: "http://landuo.github.io/design-pattern/abstract_factory/",
   owner: 'landuo',
   repo: 'landuo.github.io',
   oauth: {

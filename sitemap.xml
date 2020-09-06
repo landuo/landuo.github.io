@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://landuo.github.io/design-pattern/abstract_factory/</loc>
+    
+    <lastmod>2020-09-06T14:36:44.400Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://landuo.github.io/sort/insert_sort/</loc>
     
     <lastmod>2020-09-01T12:43:55.772Z</lastmod>
