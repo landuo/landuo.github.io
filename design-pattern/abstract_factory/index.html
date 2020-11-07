@@ -196,26 +196,110 @@ ga('send', 'pageview');
 <li>创建一个抽象工厂类 DbFactory, 然后创建 Oracle 和 MySQL 数据库对其的实现类，由这些实现类来创建各自数据库需要操作的类</li>
 </ol>
 <h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><p>以更换数据库为例：<br><strong>步骤1：</strong> 创建接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">insertDepartment</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">getDepartment</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public interface IUser {
+    void insertUser();
 
+    void getUser();
+}
+
+public interface IDepartment {
+    void insertDepartment();
+
+    void getDepartment();
+}</code></pre>
 <p><strong>步骤2：</strong> 创建接口的实现类<br>MySQL的实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLUser</span> <span class="keyword">implements</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中插入一条 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中查询 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLDepartment</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中插入一条 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 MySQL 中查询 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class MySQLUser implements IUser {
+    @Override
+    public void insertUser() {
+        System.out.println(&quot;在 MySQL 中插入一条 User 记录&quot;);
+    }
 
+    @Override
+    public void getUser() {
+        System.out.println(&quot;在 MySQL 中查询 User 记录&quot;);
+    }
+}
+
+public class MySQLDepartment implements IDepartment {
+    @Override
+    public void insertDepartment() {
+        System.out.println(&quot;在 MySQL 中插入一条 department 记录&quot;);
+    }
+
+    @Override
+    public void getDepartment() {
+        System.out.println(&quot;在 MySQL 中查询 department 记录&quot;);
+    }
+}</code></pre>
 <p>Oralce的实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OracleUser</span> <span class="keyword">implements</span> <span class="title">IUser</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中插入一条 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中查询 User 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OracleDepartment</span> <span class="keyword">implements</span> <span class="title">IDepartment</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">insertDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中插入一条 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"在 Oracle 中查询 department 记录"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class OracleUser implements IUser {
+    @Override
+    public void insertUser() {
+        System.out.println(&quot;在 Oracle 中插入一条 User 记录&quot;);
+    }
 
+    @Override
+    public void getUser() {
+        System.out.println(&quot;在 Oracle 中查询 User 记录&quot;);
+    }
+}
+
+public class OracleDepartment implements IDepartment {
+    @Override
+    public void insertDepartment() {
+        System.out.println(&quot;在 Oracle 中插入一条 department 记录&quot;);
+    }
+
+    @Override
+    public void getDepartment() {
+        System.out.println(&quot;在 Oracle 中查询 department 记录&quot;);
+    }
+}</code></pre>
 <p><strong>步骤3：</strong> 创建抽象工厂并创建不同数据库对其的实现<br>创建抽象工厂</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">DbFactory</span> </span>&#123;</span><br><span class="line">    <span class="function">IUser <span class="title">createUser</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function">IDepartment <span class="title">createDepartment</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public interface DbFactory {
+    IUser createUser();
 
+    IDepartment createDepartment();
+}</code></pre>
 <p>创建 Oracle 对其的实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OracleFactory</span> <span class="keyword">implements</span> <span class="title">DbFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IUser <span class="title">createUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OracleUser();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDepartment <span class="title">createDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OracleDepartment();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class OracleFactory implements DbFactory {
+    @Override
+    public IUser createUser() {
+        return new OracleUser();
+    }
 
+    @Override
+    public IDepartment createDepartment() {
+        return new OracleDepartment();
+    }
+}</code></pre>
 <p>创建 MySQL 对其的实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLFactory</span> <span class="keyword">implements</span> <span class="title">DbFactory</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IUser <span class="title">createUser</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MySQLUser();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> IDepartment <span class="title">createDepartment</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MySQLDepartment();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class MySQLFactory implements DbFactory {
+    @Override
+    public IUser createUser() {
+        return new MySQLUser();
+    }
 
+    @Override
+    public IDepartment createDepartment() {
+        return new MySQLDepartment();
+    }
+}</code></pre>
 <p><strong>步骤4：</strong> 调用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractFactoryDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        数据库为 MySQL 时只需要创建 MySQL 的工厂即可</span></span><br><span class="line"><span class="comment">//        DbFactory factory = new MySQLFactory();</span></span><br><span class="line">        DbFactory factory = <span class="keyword">new</span> OracleFactory();</span><br><span class="line">        IUser user = factory.createUser();</span><br><span class="line">        user.insertUser();</span><br><span class="line">        user.getUser();</span><br><span class="line">        IDepartment department = factory.createDepartment();</span><br><span class="line">        department.insertDepartment();</span><br><span class="line">        department.getDepartment();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class AbstractFactoryDemo {
+    public static void main(String[] args) {
+//        数据库为 MySQL 时只需要创建 MySQL 的工厂即可
+//        DbFactory factory = new MySQLFactory();
+        DbFactory factory = new OracleFactory();
+        IUser user = factory.createUser();
+        user.insertUser();
+        user.getUser();
+        IDepartment department = factory.createDepartment();
+        department.insertDepartment();
+        department.getDepartment();
 
+    }
+}</code></pre>
 <p><strong>运行结果：</strong></p>
 <pre><code>在 Oracle 中插入一条 User 记录
 在 Oracle 中查询 User 记录

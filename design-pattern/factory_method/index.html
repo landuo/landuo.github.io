@@ -226,23 +226,64 @@ ga('send', 'pageview');
 </ol>
 <h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><p>以畜牧场为例，从畜牧场中生产出牛和马：</p>
 <p><strong>步骤1：</strong> 定义一个动物接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 嘶叫</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Java">public interface Animal {
+    // 嘶叫
+    void bray();
+}</code></pre>
 <p><strong>步骤2：</strong> 定义一个生产动物的畜牧场工厂接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="function">Animal <span class="title">newAnimal</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="Java">public interface AnimalFarm {
+    Animal newAnimal();
+}</code></pre>
 <p><strong>步骤3：</strong> 定义不同的动物（牛、马等）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cattle</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Cattle</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"牛叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Horse</span> <span class="keyword">implements</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Horse</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bray</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"马叫"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class Cattle implements Animal {
+    public Cattle() {}
 
+    @Override
+    public void bray() {
+        System.out.println(&quot;牛叫&quot;);
+    }
+}
+
+public class Horse implements Animal {
+    public Horse() {}
+
+    @Override
+    public void bray() {
+        System.out.println(&quot;马叫&quot;);
+    }
+}</code></pre>
 <p><strong>步骤4：</strong> 定义创建各种动物的具体生产工厂（每个工厂负责生产一种动物）</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CattleFarm</span> <span class="keyword">implements</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cattle();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HorseFarm</span> <span class="keyword">implements</span> <span class="title">AnimalFarm</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Animal <span class="title">newAnimal</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Horse();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class CattleFarm implements AnimalFarm {
+    @Override
+    public Animal newAnimal() {
+        return new Cattle();
+    }
 
+}
+
+public class HorseFarm implements AnimalFarm {
+    @Override
+    public Animal newAnimal() {
+        return new Horse();
+    }
+}</code></pre>
 <p><strong>步骤5：</strong> 外部调用不同工厂类的方法，带走不同的动物</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FactoryMethod</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 带走一头牛</span></span><br><span class="line">        AnimalFarm cattleFarm = <span class="keyword">new</span> CattleFarm();</span><br><span class="line">        Animal cattle = cattleFarm.newAnimal();</span><br><span class="line">        cattle.bray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 带走一头马</span></span><br><span class="line">        AnimalFarm horseFarm = <span class="keyword">new</span> HorseFarm();</span><br><span class="line">        Animal horse = horseFarm.newAnimal();</span><br><span class="line">        horse.bray();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public class FactoryMethod {
+    public static void main(String[] args) {
+        // 带走一头牛
+        AnimalFarm cattleFarm = new CattleFarm();
+        Animal cattle = cattleFarm.newAnimal();
+        cattle.bray();
 
+        // 带走一头马
+        AnimalFarm horseFarm = new HorseFarm();
+        Animal horse = horseFarm.newAnimal();
+        horse.bray();
+    }
+}</code></pre>
 <p><strong>运行结果：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">牛叫</span><br><span class="line">马叫</span><br></pre></td></tr></table></figure>
-
+<pre><code>牛叫
+马叫</code></pre>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>优点</strong>：</p>
 <ul>
 <li>更符合<strong>开闭原则</strong></li>

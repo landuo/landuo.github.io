@@ -189,21 +189,25 @@ ga('send', 'pageview');
 </blockquote>
 <p>  <strong>最后一点说Raspbian只能用脚本的方式安装（安装docker的第一个问题就是用错了方法）</strong><br>  下面贴上<a href="https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-engine---community" target="_blank" rel="noopener" title="Install Docker Engine">官网</a>的做法：  </p>
 <a id="more"></a>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://get.docker.com -o get-docker.sh</span><br><span class="line">$ sudo sh get-docker.sh</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">$ curl -fsSL https://get.docker.com -o get-docker.sh
+$ sudo sh get-docker.sh</code></pre>
 <p>因为总所周知的问题，这个操作可能会久一些，甚至可能出现time out，如果time out了可以尝试多几次或者等网络好一点的时候再安装，或者使用代理。  </p>
 <p>如果允许非root用户使用docker的话，需要将该用户添加到 “<strong>docker</strong>” 用户组里，例如:  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo usermod -aG docker pi</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">sudo usermod -aG docker pi</code></pre>
 <p>将上面的 <strong>pi</strong> 换成能使用docker的非root用户， 然后重新登录终端就能让该非root用户使用docker。<br>使用 <code> docker -v</code> 查看docker版本，确认docker已经安装好，接下来就可以安装docker compose了。  </p>
 <hr>
 <h3 id="安装-docker-compose"><a href="#安装-docker-compose" class="headerlink" title="安装 docker compose"></a>安装 docker compose</h3><p>使用 <strong>pip</strong> 安装docker-compose，执行以下命令:  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">sudo pip install docker-compose</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">    sudo apt-get install python-pip
+    sudo pip install docker-compose</code></pre>
 <p>如果 pip 安装 docker-compose出错的话，可以在安装的时候指定版本试试，指定版本之后就装上了：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install docker-compose==1.23.2</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">sudo pip install docker-compose==1.23.2</code></pre>
 <p>如果安装不出错的话运行 <code>docker-compose --version</code> 查看 docker compose 的版本，如果显示出版本号则安装成功：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">osmc@osmc:~$ docker-compose --version</span><br><span class="line">docker-compose version 1.23.2, build 1110ad0</span><br></pre></td></tr></table></figure>
+<pre><code class="bash">osmc@osmc:~$ docker-compose --version
+docker-compose version 1.23.2, build 1110ad0</code></pre>
 <p>如果还出错的话，考虑是不是 <strong>pip</strong> 的版本过低，可以尝试升级下 <strong>pip</strong>：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://bootstrap.pypa.io/get-pip.py</span><br><span class="line">sudo python3 get-pip.py</span><br><span class="line">sudo pip3 install docker-compose</span><br></pre></td></tr></table></figure>
-
+<pre><code class="bash">wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+sudo pip3 install docker-compose</code></pre>
 
       
 

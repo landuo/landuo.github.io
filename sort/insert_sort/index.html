@@ -187,10 +187,50 @@ ga('send', 'pageview');
 
 <h3 id="动画演示"><a href="#动画演示" class="headerlink" title="动画演示"></a>动画演示</h3><p><img src="/images/sort/insert_sort1"></p>
 <h3 id="步骤分析"><a href="#步骤分析" class="headerlink" title="步骤分析"></a>步骤分析</h3><p>设有一个数据元素序列 <strong>{3,6,4,2,11,10,5}</strong> ，使用插入排序时每次排序的步骤<br><img src="/images/sort/insert_sort2.png"></p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> sorting;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.Random;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">7</span>];</span><br><span class="line">        Random rand = <span class="keyword">new</span> Random();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">7</span>; i++) &#123;</span><br><span class="line">            arr[i] = rand.nextInt(<span class="number">100</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"生成随机数组："</span> + Arrays.toString(arr));</span><br><span class="line">        sort(arr);</span><br><span class="line">        System.out.println(<span class="string">"排序后的结果: "</span> + Arrays.toString(arr));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i, j, num, n = arr.length;</span><br><span class="line">        <span class="comment">// 从数组第二个遍历到数组最后一个</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; n; i++) &#123;</span><br><span class="line">            j = i - <span class="number">1</span>; <span class="comment">// 从此次需要排序的数的前一个数开始比较</span></span><br><span class="line">            num = arr[i]; <span class="comment">// 将此次需要排序的数先存起来</span></span><br><span class="line">            <span class="comment">// 从当前需要排序的数的前一个逆序遍历至数组第一个元素</span></span><br><span class="line">            <span class="keyword">while</span> (j &gt;= <span class="number">0</span> &amp;&amp; arr[j] &gt; num) &#123;  <span class="comment">// 一直向前对比，直到 arr[j] 比 num 小为止</span></span><br><span class="line">                <span class="comment">// 进入这里说明 arr[i] 比 num ，需要把 num 放到 arr[i] 前面 （即二者交换位置）</span></span><br><span class="line">                arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j + <span class="number">1</span>] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                arr[j] = arr[j] ^ arr[j + <span class="number">1</span>];</span><br><span class="line">                <span class="comment">// 交换完后继续与前面的元素对比</span></span><br><span class="line">                j--;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(<span class="string">"第"</span> + i + <span class="string">"次排序："</span> + Arrays.toString(arr));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><pre><code class="Java">package sorting;
 
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">生成随机数组：[<span class="number">48</span>, <span class="number">45</span>, <span class="number">35</span>, <span class="number">32</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">1</span>次排序：[<span class="number">45</span>, <span class="number">48</span>, <span class="number">35</span>, <span class="number">32</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">2</span>次排序：[<span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">32</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">3</span>次排序：[<span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">4</span>次排序：[<span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">13</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">5</span>次排序：[<span class="number">13</span>, <span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">99</span>]</span><br><span class="line">第<span class="number">6</span>次排序：[<span class="number">13</span>, <span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">99</span>]</span><br><span class="line">排序后的结果: [<span class="number">13</span>, <span class="number">32</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">48</span>, <span class="number">93</span>, <span class="number">99</span>]</span><br></pre></td></tr></table></figure>
+import java.util.Arrays;
+import java.util.Random;
 
+public class InsertSort {
+    public static void main(String[] args) {
+        int[] arr = new int[7];
+        Random rand = new Random();
+        for (int i = 0; i &lt; 7; i++) {
+            arr[i] = rand.nextInt(100);
+        }
+        System.out.println(&quot;生成随机数组：&quot; + Arrays.toString(arr));
+        sort(arr);
+        System.out.println(&quot;排序后的结果: &quot; + Arrays.toString(arr));
+    }
+
+    public static void sort(int[] arr) {
+        int i, j, num, n = arr.length;
+        // 从数组第二个遍历到数组最后一个
+        for (i = 1; i &lt; n; i++) {
+            j = i - 1; // 从此次需要排序的数的前一个数开始比较
+            num = arr[i]; // 将此次需要排序的数先存起来
+            // 从当前需要排序的数的前一个逆序遍历至数组第一个元素
+            while (j &gt;= 0 &amp;&amp; arr[j] &gt; num) {  // 一直向前对比，直到 arr[j] 比 num 小为止
+                // 进入这里说明 arr[i] 比 num ，需要把 num 放到 arr[i] 前面 （即二者交换位置）
+                arr[j] = arr[j] ^ arr[j + 1];
+                arr[j + 1] = arr[j] ^ arr[j + 1];
+                arr[j] = arr[j] ^ arr[j + 1];
+                // 交换完后继续与前面的元素对比
+                j--;
+            }
+            System.out.println(&quot;第&quot; + i + &quot;次排序：&quot; + Arrays.toString(arr));
+        }
+    }
+}</code></pre>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre><code>生成随机数组：[48, 45, 35, 32, 93, 13, 99]
+第1次排序：[45, 48, 35, 32, 93, 13, 99]
+第2次排序：[35, 45, 48, 32, 93, 13, 99]
+第3次排序：[32, 35, 45, 48, 93, 13, 99]
+第4次排序：[32, 35, 45, 48, 93, 13, 99]
+第5次排序：[13, 32, 35, 45, 48, 93, 99]
+第6次排序：[13, 32, 35, 45, 48, 93, 99]
+排序后的结果: [13, 32, 35, 45, 48, 93, 99]</code></pre>
 <p>以上代码保存在： <a href="https://github.com/landuo/Learning" target="_blank" rel="noopener">landuo/Learning</a></p>
 
       

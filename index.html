@@ -536,7 +536,9 @@ ga('send', 'pageview');
         <h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>严格来说，「简单工厂模式」并不是 23 种常用的设计模式之一，它违背了设计模式六大原则之一的 <strong>开闭原则</strong> (虽然可以通过反射的机制来避免)，因为每当需要添加一个功能时都需要在 <em>if-else</em> 或者 <em>switch-case</em> 语句中修改代码，添加分支条件</p>
 <h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><p>创建一个 <em>Shape</em> 接口和实现 <em>Shape</em> 接口的实体类，定义工厂类 <em>ShapeFactory</em> ，在 <em>ShapeFactory</em> 中定义获取 <em>Shape</em> 对象的方法，需要向此方法传递信息以便创建所需对象的类型</p>
 <p><strong>步骤1:</strong> 创建一个接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Shape</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">draw</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">public interface Shape {
+  void draw();
+}</code></pre>
         
       
 

@@ -189,14 +189,80 @@ ga('send', 'pageview');
 </li>
 </ul>
 <p><strong>四个配置application文件：</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># application.yml的内容，这里放一些共用的配置，避免重复配置</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  servlet:</span></span><br><span class="line"><span class="attr">    context-path:</span> <span class="string">/demo</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  profiles:</span></span><br><span class="line"><span class="attr">    active:</span> <span class="string">@spring.profiles.active@</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">---------</span> <span class="string">分割线</span> <span class="bullet">---------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># application-dev.yml的内容，这里放一些本地开发时（DEV）使用的配置，这里我只写数据源的配置，其他的省略</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:oracle:thin:@localhost:1521/PDBDEV</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">DEV</span></span><br><span class="line"><span class="attr">    password:</span> <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">---------</span> <span class="string">分割线</span> <span class="bullet">---------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># application-sit.yml的内容，这里放 SIT 使用的配置，这里也只写数据源的配置，其他的省略</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:oracle:thin:@localhost:1521/PDBSIT</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">SIT</span></span><br><span class="line"><span class="attr">    password:</span> <span class="number">123456</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span><span class="bullet">---------</span> <span class="string">分割线</span> <span class="bullet">---------</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># application-uat.yml的内容，这里放 UAT 使用的配置，这里也只写数据源的配置，其他的省略</span></span><br><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line">  <span class="comment"># 此时使用 JDNI 方法</span></span><br><span class="line"><span class="attr">    jndi-name:</span> <span class="string">jdbc/DS</span></span><br></pre></td></tr></table></figure>
+<pre><code class="yaml"># application.yml的内容，这里放一些共用的配置，避免重复配置
+server:
+  servlet:
+    context-path: /demo
+  port: 8080
 
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
+---------- 分割线 ---------
+
+# application-dev.yml的内容，这里放一些本地开发时（DEV）使用的配置，这里我只写数据源的配置，其他的省略
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/PDBDEV
+    username: DEV
+    password: 123456
+
+---------- 分割线 ---------
+
+# application-sit.yml的内容，这里放 SIT 使用的配置，这里也只写数据源的配置，其他的省略
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/PDBSIT
+    username: SIT
+    password: 123456
+
+---------- 分割线 ---------
+
+# application-uat.yml的内容，这里放 UAT 使用的配置，这里也只写数据源的配置，其他的省略
+spring:
+  datasource:
+  # 此时使用 JDNI 方法
+    jndi-name: jdbc/DS</code></pre>
 <p><strong>一个pom.xml文件：</strong>  </p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 省略其他部分 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">profiles</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">activation</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">activeByDefault</span>&gt;</span>true<span class="tag">&lt;/<span class="name">activeByDefault</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">activation</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">spring.profiles.active</span>&gt;</span>dev<span class="tag">&lt;/<span class="name">spring.profiles.active</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>sit<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">spring.profiles.active</span>&gt;</span>sit<span class="tag">&lt;/<span class="name">spring.profiles.active</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">profile</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>uat<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">spring.profiles.active</span>&gt;</span>uat<span class="tag">&lt;/<span class="name">spring.profiles.active</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">profile</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">profiles</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 省略其他部分 --&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="xml">&lt;!-- 省略其他部分 --&gt;
+&lt;profiles&gt;
+    &lt;profile&gt;
+        &lt;id&gt;dev&lt;/id&gt;
+        &lt;activation&gt;
+            &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+        &lt;/activation&gt;
+        &lt;properties&gt;
+            &lt;spring.profiles.active&gt;dev&lt;/spring.profiles.active&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+        &lt;id&gt;sit&lt;/id&gt;
+        &lt;properties&gt;
+            &lt;spring.profiles.active&gt;sit&lt;/spring.profiles.active&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+    &lt;profile&gt;
+        &lt;id&gt;uat&lt;/id&gt;
+        &lt;properties&gt;
+            &lt;spring.profiles.active&gt;uat&lt;/spring.profiles.active&gt;
+        &lt;/properties&gt;
+    &lt;/profile&gt;
+&lt;/profiles&gt;
+&lt;!-- 省略其他部分 --&gt;</code></pre>
 <p><strong>一个数据源配置类 DataSourceConfig：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DataSourceConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Environment env;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnJndi</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource</span><span class="params">()</span> <span class="keyword">throws</span> NamingException </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (DataSource)<span class="keyword">new</span> JndiTemplate()</span><br><span class="line">                .lookup(Objects.requireNonNull(env.getProperty(<span class="string">"spring.datasource.jndi-name"</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="Java">@Configuration
+public class DataSourceConfig {
+    @Autowired
+    private Environment env;
 
+    @Bean
+    @ConditionalOnJndi
+    public DataSource dataSource() throws NamingException {
+        return (DataSource)new JndiTemplate()
+                .lookup(Objects.requireNonNull(env.getProperty(&quot;spring.datasource.jndi-name&quot;)));
+    }
+}</code></pre>
 <p>完成以上配置后即可实现预期效果，默认使用 DEV 进行开发，使用 <code>mvn clean package -Psit</code> 部署时连接的是 SIT 环境，使用 <code>mvn clean package -Puat</code> 部署时使用的是配置的 <strong>jdbc/DS</strong> 数据源，大功告成！</p>
 <h3 id="遇到的坑"><a href="#遇到的坑" class="headerlink" title="遇到的坑"></a>遇到的坑</h3><ol>
 <li>一开始我只有 <code>application.yml</code>，<code>application-sit.yml</code>，<code>application-uat.yml</code>这三个配置，<code>application.yml</code>当作 DEV 的配置使用， 也没有配 <strong>dataSource()</strong> 这个 <strong>Bean</strong> ，执行 <code>mvn clean package -Puat</code> 部署 Webpshere 后项目启动不了</li>

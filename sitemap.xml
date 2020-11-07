@@ -4,64 +4,138 @@
   <url>
     <loc>http://landuo.github.io/notes/configuration-of-using-JNDI-in-SpringBoot/</loc>
     
-    <lastmod>2020-11-07T07:24:44.531Z</lastmod>
+    <lastmod>2020-11-07</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/simple_factory/</loc>
     
-    <lastmod>2020-11-07T05:37:15.402Z</lastmod>
+    <lastmod>2020-11-07</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/factory_method/</loc>
     
-    <lastmod>2020-11-07T05:37:14.749Z</lastmod>
+    <lastmod>2020-11-07</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/sort/insert_sort/</loc>
     
-    <lastmod>2020-11-07T05:37:08.579Z</lastmod>
+    <lastmod>2020-11-07</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/abstract_factory/</loc>
     
-    <lastmod>2020-11-07T05:36:59.486Z</lastmod>
+    <lastmod>2020-11-07</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/singleton/</loc>
     
-    <lastmod>2020-11-07T05:36:52.793Z</lastmod>
+    <lastmod>2020-11-07</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/design_pattern_intro/</loc>
     
-    <lastmod>2020-08-23T15:45:57.219Z</lastmod>
+    <lastmod>2020-08-23</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/resolv_cpu100_by_mine_script/</loc>
     
-    <lastmod>2020-08-23T13:58:02.568Z</lastmod>
+    <lastmod>2020-08-23</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/install_docker_with_raspberry_pi/</loc>
     
-    <lastmod>2020-06-10T09:08:36.887Z</lastmod>
+    <lastmod>2020-06-10</lastmod>
     
+  </url>
+  
+
+  <url>
+    <loc>http://landuo.github.io/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  
+  <url>
+    <loc>http://landuo.github.io/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/tags/docker/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/tags/linux/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/tags/SpringBoot-Websphere-JNDI/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/tags/%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+
+  
+  <url>
+    <loc>http://landuo.github.io/categories/Study/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/categories/Notes/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/categories/Notes/</loc>
+    <lastmod>2020-11-07</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
   
 </urlset>
