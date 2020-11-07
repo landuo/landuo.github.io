@@ -2,37 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://landuo.github.io/design-pattern/abstract_factory/</loc>
+    <loc>http://landuo.github.io/notes/configuration-of-using-JNDI-in-SpringBoot/</loc>
     
-    <lastmod>2020-09-06T14:36:44.400Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://landuo.github.io/sort/insert_sort/</loc>
-    
-    <lastmod>2020-09-01T12:43:55.772Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://landuo.github.io/design-pattern/singleton/</loc>
-    
-    <lastmod>2020-09-01T09:55:31.043Z</lastmod>
+    <lastmod>2020-11-07T07:24:44.531Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/simple_factory/</loc>
     
-    <lastmod>2020-09-01T09:55:15.179Z</lastmod>
+    <lastmod>2020-11-07T05:37:15.402Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://landuo.github.io/design-pattern/factory_method/</loc>
     
-    <lastmod>2020-09-01T09:55:04.433Z</lastmod>
+    <lastmod>2020-11-07T05:37:14.749Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/sort/insert_sort/</loc>
+    
+    <lastmod>2020-11-07T05:37:08.579Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/design-pattern/abstract_factory/</loc>
+    
+    <lastmod>2020-11-07T05:36:59.486Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://landuo.github.io/design-pattern/singleton/</loc>
+    
+    <lastmod>2020-11-07T05:36:52.793Z</lastmod>
     
   </url>
   

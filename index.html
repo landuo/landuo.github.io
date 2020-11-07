@@ -155,6 +155,97 @@ ga('send', 'pageview');
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-notes/configuration-of-using-JNDI-in-SpringBoot" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/notes/configuration-of-using-JNDI-in-SpringBoot/">Websphere部署SpringBoot项目时，使用JDNI数据源</a>
+    </h1>
+  
+
+        
+        <a href="/notes/configuration-of-using-JNDI-in-SpringBoot/" class="archive-article-date">
+  	<time datetime="2020-11-07T05:38:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="背景描述"><a href="#背景描述" class="headerlink" title="背景描述"></a>背景描述</h3><p>最近在写了个项目，需要将项目部署在Websphere上，并且使用Websphere上配置好的数据源，也就是项目中需要使用 JNDI 去获取数据。但经历了一系列曲折，通过一番摸索之后成功实现 <strong>本地开发使用 jdbc URL 连接数据库，部署时使用JNDI数据源</strong> 的方法，并将解决方法记录在此。</p>
+<h3 id="预期效果"><a href="#预期效果" class="headerlink" title="预期效果"></a>预期效果</h3><p>DEV 和 SIT 使用 JDBC URL 连接数据库，UAT 使用 Websphere 中配置好的数据源，这里我配置的 JNDI 的名称为 <strong>jdbc/DS</strong> （曾经试着将数据源的名称设置为 DS，但部署时不起效，发现网上的文章在配置 Websphere 的数据源时都已 <strong>jdbc/</strong> 开头，因此这里也用 <strong>jdbc/</strong> 开始，而如何在 Websphere 中配置数据源请移步各大搜索引擎）</p>
+<h3 id="实现方法"><a href="#实现方法" class="headerlink" title="实现方法"></a>实现方法</h3><p>假设此时有 <strong>三个环境</strong>： DEV，SIT，UAT，需要的文件有</p>
+<ul>
+<li><strong>四个配置application文件</strong>： <code>application.yml</code> ， <code>application-dev.yml</code> ， <code>application-sit.yml</code> ， <code>application-uat.yml</code></li>
+<li><strong>一个pom.xml文件</strong>  </li>
+<li><strong>一个数据源配置类 DataSourceConfig</strong>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">+ SpringBoot + Websphere + JNDI</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Notes//" class="article-tag-list-link color3">+ Notes</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/notes/configuration-of-using-JNDI-in-SpringBoot/">阅读全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-design-pattern/abstract_factory" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -162,7 +253,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/design-pattern/abstract_factory/">抽象工厂模式</a>
+      <a class="article-title" href="/design-pattern/abstract_factory/">Java实现抽象工厂模式</a>
     </h1>
   
 
@@ -252,7 +343,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/sort/insert_sort/">插入排序</a>
+      <a class="article-title" href="/sort/insert_sort/">Java实现插入排序</a>
     </h1>
   
 
@@ -338,7 +429,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/design-pattern/factory_method/">工厂方法模式</a>
+      <a class="article-title" href="/design-pattern/factory_method/">Java实现工厂方法模式</a>
     </h1>
   
 
@@ -429,7 +520,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/design-pattern/simple_factory/">简单工厂模式</a>
+      <a class="article-title" href="/design-pattern/simple_factory/">Java实现简单工厂模式</a>
     </h1>
   
 
@@ -517,7 +608,7 @@ ga('send', 'pageview');
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/design-pattern/singleton/">单例模式</a>
+      <a class="article-title" href="/design-pattern/singleton/">Java实现单例模式</a>
     </h1>
   
 
@@ -1006,6 +1097,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">+ SpringBoot + Websphere + JNDI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
             
@@ -1057,7 +1152,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">世界上有四种东西不能分享：&lt;br/&gt;书、电影、音乐、心情.</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">18年11月开始在广州工作的 Java 工程师一枚</div>
   	  	
     	</section>
     

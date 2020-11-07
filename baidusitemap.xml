@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://landuo.github.io/design-pattern/abstract_factory/</loc>
-    <lastmod>2020-09-06</lastmod>
-  </url>  <url>
-    <loc>http://landuo.github.io/sort/insert_sort/</loc>
-    <lastmod>2020-09-01</lastmod>
-  </url>  <url>
-    <loc>http://landuo.github.io/design-pattern/singleton/</loc>
-    <lastmod>2020-09-01</lastmod>
+    <loc>http://landuo.github.io/notes/configuration-of-using-JNDI-in-SpringBoot/</loc>
+    <lastmod>2020-11-07</lastmod>
   </url>  <url>
     <loc>http://landuo.github.io/design-pattern/simple_factory/</loc>
-    <lastmod>2020-09-01</lastmod>
+    <lastmod>2020-11-07</lastmod>
   </url>  <url>
     <loc>http://landuo.github.io/design-pattern/factory_method/</loc>
-    <lastmod>2020-09-01</lastmod>
+    <lastmod>2020-11-07</lastmod>
+  </url>  <url>
+    <loc>http://landuo.github.io/sort/insert_sort/</loc>
+    <lastmod>2020-11-07</lastmod>
+  </url>  <url>
+    <loc>http://landuo.github.io/design-pattern/abstract_factory/</loc>
+    <lastmod>2020-11-07</lastmod>
+  </url>  <url>
+    <loc>http://landuo.github.io/design-pattern/singleton/</loc>
+    <lastmod>2020-11-07</lastmod>
   </url>  <url>
     <loc>http://landuo.github.io/design-pattern/design_pattern_intro/</loc>
     <lastmod>2020-08-23</lastmod>

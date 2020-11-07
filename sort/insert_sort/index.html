@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://landuo.github.io">
-  <title>插入排序 | Accidia的记事本</title>
+  <title>Java实现插入排序 | Accidia的记事本</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="前言以下内容为个人见解，如有见解，请赐教，谢谢大家。 思路将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序">
 <meta property="og:type" content="article">
-<meta property="og:title" content="插入排序">
+<meta property="og:title" content="Java实现插入排序">
 <meta property="og:url" content="http://landuo.github.io/sort/insert_sort/index.html">
 <meta property="og:site_name" content="Accidia的记事本">
 <meta property="og:description" content="前言以下内容为个人见解，如有见解，请赐教，谢谢大家。 思路将整个数组分成已经排好序的数组和未排序的数组，每次排序时取未排序数组的第一个数，与已排序数组做比较（每次都与前一个数做比较，如果前一个数比这个数大则两者交换位置然后继续向前比较；直至这个数比前一个数小的时候结束这个数的排序。此时这个数与原先已排序的数组组合成了新的已排序的数组），排好序后再接着取未排序数组的第一个数进行排序">
@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://landuo.github.io/images/sort/insert_sort1">
 <meta property="og:image" content="http://landuo.github.io/images/sort/insert_sort2.png">
 <meta property="article:published_time" content="2020-09-01T10:48:54.000Z">
-<meta property="article:modified_time" content="2020-09-01T12:43:55.772Z">
+<meta property="article:modified_time" content="2020-11-07T05:37:08.579Z">
 <meta property="article:author" content="Accidia">
 <meta property="article:tag" content="排序">
 <meta name="twitter:card" content="summary">
@@ -168,7 +168,7 @@ ga('send', 'pageview');
         
   
     <h1 class="article-title" itemprop="name">
-      插入排序
+      Java实现插入排序
     </h1>
   
 
@@ -290,14 +290,14 @@ ga('send', 'pageview');
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          抽象工厂模式
+          Java实现抽象工厂模式
         
       </div>
     </a>
   
   
     <a href="/design-pattern/factory_method/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">工厂方法模式</div>
+      <div class="article-nav-title">Java实现工厂方法模式</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -473,6 +473,10 @@ MathJax.Hub.Queue(function() {
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">+ SpringBoot + Websphere + JNDI</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">排序</a>
               </li>
             
@@ -524,7 +528,7 @@ MathJax.Hub.Queue(function() {
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">世界上有四种东西不能分享：&lt;br/&gt;书、电影、音乐、心情.</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">18年11月开始在广州工作的 Java 工程师一枚</div>
   	  	
     	</section>
     
